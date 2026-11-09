@@ -1,0 +1,10 @@
+# Research output and built pages
+product-research/
+*.html
+!assets/template.html
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+node_modules/

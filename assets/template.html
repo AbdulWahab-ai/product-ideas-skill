@@ -1,0 +1,341 @@
+<title>__TITLE__</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f5f6f8; --surface:#ffffff; --fg:#151a22; --muted:#56606e; --line:#d9dde4;
+  --accent:#1f4fa8; --accent-soft:#e6edf9;
+  --crit:#b3261e; --crit-soft:#fbe9e7; --warn:#8a5a00; --warn-soft:#fdf2d8; --ok:#1d6b45; --ok-soft:#e3f3ea;
+  --display:"Archivo Narrow","Arial Narrow",Arial,sans-serif;
+  --body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0f131a; --surface:#161c25; --fg:#e4e8ee; --muted:#9aa4b2; --line:#2a3340;
+  --accent:#7ea6f2; --accent-soft:#1b2a44;
+  --crit:#f08a80; --crit-soft:#3a1d1b; --warn:#e8bd5c; --warn-soft:#352a12; --ok:#6fcf9c; --ok-soft:#14301f; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f131a; --surface:#161c25; --fg:#e4e8ee; --muted:#9aa4b2; --line:#2a3340;
+  --accent:#7ea6f2; --accent-soft:#1b2a44;
+  --crit:#f08a80; --crit-soft:#3a1d1b; --warn:#e8bd5c; --warn-soft:#352a12; --ok:#6fcf9c; --ok-soft:#14301f; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:15px/1.6 var(--body);
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 64px}
+.wrap{max-width:1120px;margin:0 auto}
+a{color:var(--accent);text-underline-offset:2px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;line-height:1.15;margin:0}
+h1{font-size:clamp(2rem,5vw,3rem);font-weight:700}
+h2{font-size:1.6rem;font-weight:700}
+h3{font-size:1.25rem;font-weight:600}
+.mono{font-family:var(--mono);font-size:.86em}
+.label{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.prose{max-width:72ch}
+
+header.mast{padding-block:40px 24px;border-bottom:2px solid var(--fg);display:grid;gap:12px}
+.marking{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tlp{font-family:var(--mono);font-size:.75rem;padding:3px 8px;border:1px solid var(--fg);background:var(--surface)}
+
+.evidence{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);margin-top:24px}
+.ev{background:var(--surface);padding:14px 16px;display:grid;gap:4px;align-content:start}
+.ev b{font-family:var(--display);font-size:1.7rem;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+.ev span{font-size:.84rem;color:var(--muted)}
+.ev a{font-size:.75rem}
+
+.howto{margin-top:24px;display:grid;gap:8px;font-size:.92rem}
+.note{background:var(--accent-soft);border-left:3px solid var(--accent);padding:12px 16px}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:12px;border-bottom:1px solid var(--line);margin-top:24px;display:grid;gap:10px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row input,.row select{font:400 .88rem var(--body);padding:6px 10px;border:1px solid var(--line);background:var(--surface);color:var(--fg);border-radius:4px;min-width:0}
+.row input{flex:1 1 220px}
+.row select{flex:0 1 auto;max-width:100%}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:4px;overflow:hidden}
+.seg button{font:500 .82rem var(--body);padding:6px 12px;border:0;background:var(--surface);color:var(--fg);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.count{font-size:.84rem;color:var(--muted)}
+
+.cards{display:grid;gap:16px;margin-top:18px}
+article.idea{background:var(--surface);border:1px solid var(--line);padding:18px 20px;display:grid;gap:12px}
+article.idea.top{box-shadow:inset 4px 0 0 var(--accent)}
+.ihead{display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:start}
+.inum{font-family:var(--mono);color:var(--accent);font-size:.95rem;padding-top:3px}
+.ihead > div{min-width:0}
+.oneliner{margin:4px 0 0;color:var(--muted);font-size:.93rem}
+.price{text-align:right;display:grid;gap:2px}
+.price b{font-family:var(--display);font-size:1.45rem;line-height:1;font-variant-numeric:tabular-nums}
+.price span{font-size:.75rem;color:var(--muted);max-width:180px}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.chip{display:inline-block;font-family:var(--mono);font-size:.7rem;padding:2px 7px;border-radius:3px;white-space:nowrap;background:var(--bg);border:1px solid var(--line);color:var(--fg)}
+.chip.fitH{background:var(--ok-soft);color:var(--ok);border-color:transparent}
+.chip.fitM{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.chip.fitL{background:var(--crit-soft);color:var(--crit);border-color:transparent}
+.chip.cat{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+.idea dl{display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:6px 18px;margin:0;font-size:.91rem}
+.idea dt{font-family:var(--mono);font-size:.7rem;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding-top:3px}
+.idea dd{margin:0;min-width:0}
+.size{font-weight:500}
+.src{font-size:.78rem}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);background:var(--surface);margin-top:18px}
+.scorechip{font-family:var(--mono);font-size:.74rem;color:var(--accent);margin-top:4px}
+details.dd{border-top:1px dashed var(--line);padding-top:10px}
+details.dd summary{cursor:pointer;font-weight:500;font-size:.9rem;color:var(--accent)}
+details.dd summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.dbody{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px 24px;margin-top:14px}
+.dgrp{display:grid;gap:6px;align-content:start;min-width:0}
+.dgrp h4{margin:0;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.dgrp dl{grid-template-columns:minmax(100px,130px) 1fr!important;font-size:.86rem!important}
+.dgrp.scores{grid-column:1 / -1;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px 18px}
+.dgrp.scores h4{grid-column:1 / -1}
+.dgrp.calc{grid-column:1 / -1;background:var(--bg);border:1px solid var(--line);padding:12px 14px}
+.dgrp.calc dl{grid-template-columns:minmax(120px,190px) 1fr!important;font-variant-numeric:tabular-nums}
+.dgrp.calc .muted,.method .muted{color:var(--muted)}
+@media (max-width:620px){.dgrp.calc dl{grid-template-columns:1fr!important}}
+.sc{display:grid;gap:3px;font-size:.78rem}
+.sbar{display:grid;grid-template-columns:repeat(5,1fr);gap:3px}
+.sbar i{height:6px;background:var(--line);border-radius:1px}
+.sbar i.on{background:var(--accent)}
+.method{background:var(--surface);border:1px solid var(--line);padding:16px 18px;display:grid;gap:10px}
+.method table{min-width:0;font-size:.84rem}
+table{border-collapse:collapse;width:100%;min-width:1100px;font-size:.86rem;font-variant-numeric:tabular-nums}
+th,td{text-align:left;vertical-align:top;padding:8px 10px;border-bottom:1px solid var(--line)}
+th{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--bg)}
+td.r{text-align:right;white-space:nowrap}
+
+section.end{margin-top:40px;display:grid;gap:14px}
+.sources{columns:2 320px;column-gap:28px;font-size:.84rem;padding-left:1.1rem;margin:0}
+.sources li{break-inside:avoid;margin-bottom:5px}
+.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed var(--line)}
+
+@media (max-width:620px){
+  .ihead{grid-template-columns:auto 1fr}
+  .price{grid-column:1 / -1;text-align:left;grid-template-columns:auto 1fr;align-items:baseline;gap:8px}
+  .idea dl{grid-template-columns:1fr;gap:2px}
+  .idea dd{margin-bottom:8px}
+}
+.muted{color:var(--muted)}
+</style>
+
+<div class="wrap">
+<header class="mast">
+  <div class="marking"><span class="tlp" id="m-badge"></span><span class="label" id="m-label"></span></div>
+  <h1 id="m-title"></h1>
+  <p class="prose" id="m-intro" style="margin:0;color:var(--muted)"></p>
+</header>
+
+<div class="evidence" id="evidence" aria-label="Size of the problem"></div>
+
+<div class="howto">
+  <p class="note prose" style="margin:0"><strong>How to read the price.</strong> "Minimum sale price" is the lowest price at which the product is still worth selling: the entry plan or smallest deal, estimated from comparable products. It is a starting point for your own pricing, not a quote. <strong>Fit</strong> rates each idea for <span id="m-profile"></span>. Ideas with a blue edge are the strongest fits.</p>
+  <div class="method prose" style="max-width:none">
+    <strong>How the score works.</strong> Each idea is rated 1–5 on eight criteria, multiplied by the weight, and scaled to 100. Open <em>Decision details</em> on any card for market size, unit economics, team, first-version cost, hardware, legal requirements, platform risk, a kill criterion and the full working.
+    <div class="tbl" style="margin:0"><table><thead><tr><th>Criterion</th><th>Weight</th><th>What 5 means</th></tr></thead><tbody id="crit"></tbody></table></div>
+    <strong>How the figures are calculated.</strong> Every money figure comes from a few inputs and the formulas below. Open <em>Decision details → How the figures were calculated</em> on any card to see that idea's inputs and working.
+    <div class="tbl" style="margin:0"><table><thead><tr><th>Figure</th><th>Formula</th></tr></thead><tbody>
+      <tr><td>Market size</td><td>Buyers in your regions × % likely to buy this kind of product within 3–5 years × typical yearly deal</td></tr>
+      <tr><td>First-version cost</td><td>People × months × monthly pay + tools, licences and hardware (low and high case)</td></tr>
+      <tr><td>Cost to serve a customer</td><td>Delivery hours × hourly cost + third-party fees + shared infrastructure ÷ customers</td></tr>
+      <tr><td>Gross margin</td><td>(Typical deal − cost to serve) ÷ typical deal</td></tr>
+      <tr><td>Price floor</td><td>Cost to serve ÷ (1 − target margin), the lowest price that keeps the target margin</td></tr>
+      <tr><td>Year-2 revenue</td><td>Target customers by end of year 2 × typical deal</td></tr>
+      <tr><td>Customers to repay the build</td><td>High-case build cost ÷ (typical deal × gross margin)</td></tr>
+      <tr><td>Score</td><td>Sum of (rating × weight) ÷ 5</td></tr>
+    </tbody></table></div>
+    <div class="tbl" style="margin:0"><table><thead><tr><th>Fixed assumption</th><th>Value</th><th>Why</th></tr></thead><tbody id="assume"></tbody></table></div>
+    <span class="muted" style="font-size:.85rem"><strong>Judgement inputs:</strong> buyer counts, the share likely to buy, typical deal, team size, delivery hours and customer targets are estimates from public market figures and comparable products, not measured data. The share likely to buy is the most uncertain input, so test it first: the market size moves in direct proportion to it. Seven of the eight score ratings (all except deal size) are judgements against the rubric above. Check buyer counts in a prospect database before relying on them.</span>
+  </div>
+</div>
+
+<div class="bar">
+  <div class="row">
+    <input id="q" type="search" placeholder="Search ideas, industries, buyers…" aria-label="Search ideas">
+    <select id="fcat" aria-label="Filter by category"><option value="">All categories</option></select>
+    <select id="fseg" aria-label="Filter by customer type"><option value="">All customers</option></select>
+    <select id="ffit" aria-label="Filter by fit">
+      <option value="">Any fit</option><option value="High">High fit for you</option><option value="Medium">Medium fit</option><option value="Low">Low fit</option>
+    </select>
+    <select id="sort" aria-label="Sort ideas">
+      <option value="score" selected>Sort: highest score</option><option value="num">Sort: catalogue order</option><option value="fit">Sort: best fit first</option><option value="mkt">Sort: largest market</option><option value="priceAsc">Sort: lowest entry price</option><option value="priceDesc">Sort: highest entry price</option><option value="easy">Sort: easiest to build</option>
+    </select>
+  </div>
+  <div class="row" style="justify-content:space-between">
+    <span class="count" id="count" aria-live="polite"></span>
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" id="v-cards" aria-pressed="true">Cards</button>
+      <button type="button" id="v-table" aria-pressed="false">Compare table</button>
+    </div>
+  </div>
+</div>
+
+<div id="cards" class="cards"></div>
+<div id="tablewrap" class="tbl" hidden><table><thead><tr><th>#</th><th>Idea</th><th>Category</th><th>Customer</th><th>Industries</th><th>Min price</th><th>Market / yr</th><th>MVP time · cost</th><th>Hardware</th><th>Platform risk</th><th>Fit</th><th>Score</th></tr></thead><tbody id="tbody"></tbody></table></div>
+
+<section class="end">
+  <h2>Where to start</h2>
+  <div id="start" style="display:grid;gap:10px"></div>
+  <h2>Caveats</h2>
+  <ul class="prose" id="caveats" style="margin:0;padding-left:1.1rem"></ul>
+  <h2>Sources</h2>
+  <p class="muted" id="m-date" style="margin:0;font-size:.85rem"></p>
+  <ul class="sources" id="srclist"></ul>
+</section>
+</div>
+
+<script id="catalogue-data" type="application/json">__DATA_JSON__</script>
+<script>
+(function(){
+var D=JSON.parse(document.getElementById("catalogue-data").textContent);
+var S=D.sources,I=D.ideas,M=D.meta;
+var W=D.weights||[20,15,15,15,10,10,10,5];
+var RATE=D.rates||{s:[1500,3000,25],x:[2500,5000,40]};
+var FLOOR=D.floorMargin||0.6;
+var BANDS=D.marketBands||[20e6,10e6,5e6,2e6];
+var KEYS=["urgency","deal","fit","speed","competition","defensibility","simplicity","legal"];
+var CRIT=["Buyer urgency & budget","Deal size × reachable buyers","Fit with your team","Time & cash to revenue","Competition (5 = little)","Defensibility","Simplicity of build & hardware","Legal burden (5 = light)"];
+var RUB=["Dated deadline or recent losses; budget already exists",
+ "Calculated, not judged: market of "+fm(BANDS[0])+"+ a year = 5, "+fm(BANDS[1])+"+ = 4, "+fm(BANDS[2])+"+ = 3, "+fm(BANDS[3])+"+ = 2, below = 1",
+ "Your team as described can deliver it now",
+ "Paid work within ~2 months for under ~$30k",
+ "Few rivals in your regions; low risk of a big platform adding it free",
+ "Data, relationships or local licences that are hard to copy",
+ "Cloud only, no special hardware, no in-house AI models",
+ "No licences or regulator approvals needed to start"];
+
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]})}
+function md(s){return esc(s).replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>")}
+function fm(n){n=Math.round(n);if(n>=1e6)return "$"+(n/1e6).toFixed(n>=1e7?0:1).replace(/\.0$/,"")+"M";if(n>=1e4)return "$"+Math.round(n/1e3)+"k";if(n>=1e3)return "$"+(n/1e3).toFixed(1).replace(/\.0$/,"")+"k";return "$"+n}
+function fn(n){return Number(n).toLocaleString("en-US")}
+function mband(m){return m>=BANDS[0]?5:m>=BANDS[1]?4:m>=BANDS[2]?3:m>=BANDS[3]?2:1}
+function $(id){return document.getElementById(id)}
+
+/* Header and method */
+document.title=M.title;$("m-title").textContent=M.title;$("m-intro").textContent=M.intro;
+$("m-badge").textContent=M.badge||"Research";$("m-label").textContent=M.label||(M.industry+" · "+M.date);
+$("m-profile").textContent=M.profile;$("m-date").textContent="Research date: "+M.date+". Figures reflect what was published up to then.";
+$("evidence").innerHTML=(D.evidence||[]).map(function(e){var s=S[e.src];return '<div class="ev"><span class="label">'+esc(e.label)+'</span><b>'+esc(e.value)+'</b><span>'+esc(e.note)+'</span>'+(s?'<a href="'+esc(s[1])+'">'+esc(s[0])+'</a>':'')+'</div>'}).join("");
+$("crit").innerHTML=CRIT.map(function(c,j){return '<tr><td>'+esc(c)+'</td><td class="r">'+W[j]+'%</td><td>'+esc(RUB[j])+'</td></tr>'}).join("");
+$("assume").innerHTML=
+ '<tr><td>Standard pay (developers, analysts, sales)</td><td class="r">'+fm(RATE.s[0])+'–'+fm(RATE.s[1])+' per person-month</td><td>'+esc(M.payNote||"Blended salary plus overhead for the team's base location")+'</td></tr>'+
+ '<tr><td>Specialist pay (scarce skills)</td><td class="r">'+fm(RATE.x[0])+'–'+fm(RATE.x[1])+' per person-month</td><td>Scarce skills; some work done by contractors</td></tr>'+
+ '<tr><td>Delivery cost per hour</td><td class="r">'+fm(RATE.s[2])+' standard · '+fm(RATE.x[2])+' specialist</td><td>Top monthly pay ÷ ~120 billable hours</td></tr>'+
+ '<tr><td>Target gross margin for the price floor</td><td class="r">'+Math.round(FLOOR*100)+'%</td><td>A common minimum for services moving toward software</td></tr>';
+
+/* Compute every idea */
+I.forEach(function(i){var c=i.calc,r=RATE[c.tier]||RATE.s;
+  var x={U:c.buyers,sh:c.share,acv:c.deal,p:c.people,m1:c.monthsLow,m2:c.monthsHigh,tier:c.tier,x1:c.toolsLow,x2:c.toolsHigh,h:c.hours,oth:c.thirdParty,inf:c.infra,N:c.customers,r:r};
+  x.mkt=x.U*x.sh/100*x.acv;
+  x.lo=Math.round((x.p*x.m1*r[0]+x.x1)/1000)*1000;x.hi=Math.round((x.p*x.m2*r[1]+x.x2)/1000)*1000;
+  x.cogs=x.h*r[2]+x.oth+x.inf/x.N;x.gm=1-x.cogs/x.acv;x.floor=x.cogs/(1-FLOOR);
+  x.rev2=x.N*x.acv;x.pay=x.gm>0?Math.ceil(x.hi/(x.acv*x.gm)):"n/a";
+  var s=i.scores;i.sc=[s.urgency,mband(x.mkt),s.fit,s.speed,s.competition,s.defensibility,s.simplicity,s.legal];
+  i.c=x;i.mvpc=i.mvpTime+" · "+fm(x.lo)+"–"+fm(x.hi);
+  i.score=Math.round(i.sc.reduce(function(a,v,j){return a+v*W[j]},0)/5);});
+var ranked=I.slice().sort(function(a,b){return b.score-a.score||a.n-b.n});ranked.forEach(function(i,k){i.rank=k+1});
+
+/* Filters */
+var cats=[],segs=[];I.forEach(function(i){if(cats.indexOf(i.cat)<0)cats.push(i.cat);i.seg.forEach(function(s){if(segs.indexOf(s)<0)segs.push(s)})});
+cats.forEach(function(c){var o=document.createElement("option");o.textContent=c;$("fcat").appendChild(o)});
+segs.forEach(function(c){var o=document.createElement("option");o.textContent=c;$("fseg").appendChild(o)});
+function srcLinks(a){return a.map(function(k){var s=S[k];return s?'<a href="'+esc(s[1])+'">'+esc(s[0])+'</a>':""}).join(" · ")}
+var fitRank={High:0,Medium:1,Low:2},buildRank={Low:0,Medium:1,High:2};
+
+function card(i){
+  return '<article class="idea'+(i.fit==="High"?" top":"")+'"><div class="ihead"><span class="inum">#'+i.n+'</span><div><h3>'+esc(i.name)+'</h3><p class="oneliner">'+esc(i.one)+'</p></div>'+
+  '<div class="price"><span class="label">Min. sale price</span><b>'+esc(i.price)+'</b><span class="scorechip">Score '+i.score+'/100 · #'+i.rank+'</span></div></div>'+
+  '<div class="tags"><span class="chip cat">'+esc(i.cat)+'</span>'+i.seg.map(function(s){return '<span class="chip">'+esc(s)+'</span>'}).join("")+'<span class="chip">Build: '+esc(i.build)+'</span><span class="chip fit'+i.fit.charAt(0)+'">Fit for you: '+esc(i.fit)+'</span></div>'+
+  '<dl><dt>Why suggested</dt><dd>'+esc(i.why)+'</dd>'+
+  '<dt>Size of problem</dt><dd><span class="size">'+esc(i.size)+'</span><br><span class="src">'+srcLinks(i.src)+'</span></dd>'+
+  '<dt>Industries helped</dt><dd>'+esc(i.ind)+'</dd>'+
+  '<dt>Who pays</dt><dd>'+esc(i.buyer)+'</dd>'+
+  '<dt>Pricing model</dt><dd>'+esc(i.model)+'</dd>'+
+  '<dt>First version</dt><dd>'+esc(i.mvp)+'</dd>'+
+  '<dt>Competition & gap</dt><dd>'+esc(i.comp)+'</dd>'+
+  '<dt>Who it helps</dt><dd>'+esc(i.impact)+'</dd>'+
+  '<dt>Best regions</dt><dd>'+esc(i.regions)+'</dd></dl>'+details(i)+'</article>';
+}
+function details(i){
+  var x=i.c;
+  function grp(title,rows){return '<div class="dgrp"><h4 class="label">'+title+'</h4><dl>'+rows.map(function(r){return '<dt>'+r[0]+'</dt><dd>'+esc(r[1])+'</dd>'}).join("")+'</dl></div>'}
+  var bars=i.sc.map(function(v,j){var b="";for(var k=1;k<=5;k++)b+='<i class="'+(k<=v?"on":"")+'"></i>';return '<div class="sc"><span>'+CRIT[j]+' <span class="mono">'+v+'/5 · '+W[j]+'%</span></span><div class="sbar" aria-hidden="true">'+b+'</div></div>'}).join("");
+  return '<details class="dd"><summary>Decision details · market, economics, build, hardware, legal, score, working</summary><div class="dbody">'+
+   grp("Market & demand",[["Reachable buyers",i.buyersText],["Market size",fm(x.mkt)+" a year"],["Buying trigger",i.trigger],["Sales cycle",i.cycle]])+
+   grp("Economics",[["Gross margin",Math.round(x.gm*100)+"%"],["Min. price",i.price],["Pricing model",i.model]])+
+   grp("Build",[["Team to MVP",i.team],["MVP time & cost",i.mvpc],["AI / ML",i.ai],["Key dependency",i.dependency],["Technical risk",i.techRisk]])+
+   grp("Hardware & infrastructure",[["Tier",i.hwTier],["Cost",i.hwCost]])+
+   grp("Legal & trust",[["Requirements",i.legal],["Platform risk",i.platformRisk]])+
+   grp("Decision",[["Kill criterion",i.kill]])+
+   calc(i)+
+   '<div class="dgrp scores"><h4 class="label">Weighted score · '+i.score+'/100 · rank '+i.rank+' of '+I.length+'</h4>'+bars+'</div>'+
+   '</div></details>';
+}
+function calc(i){
+  var x=i.c,r=x.r,tierName=x.tier==="x"?"specialist":"standard",fl=Math.round(FLOOR*100);
+  var priceNote=!i.pnum?"There is no fixed minimum price (for example grant-funded).":
+    (i.pnum>=x.floor?"The minimum price ("+esc(i.price)+" ≈ "+fm(i.pnum)+" per customer) is above this floor.":"The minimum price ("+esc(i.price)+" ≈ "+fm(i.pnum)+" per customer) is <strong>below</strong> this floor: sell the typical deal, or cut delivery hours.");
+  var sum=i.sc.map(function(v,j){return v+"×"+W[j]}).join(" + ");
+  var L=[
+   ["Market size",fn(x.U)+" buyers in your regions × "+x.sh+"% likely to buy within 3–5 years × "+fm(x.acv)+" typical yearly deal = <strong>"+fm(x.mkt)+" a year</strong>."],
+   ["Deal-size score",fm(x.mkt)+" → <strong>"+i.sc[1]+"/5</strong> (rule: "+fm(BANDS[0])+"+ = 5, "+fm(BANDS[1])+"+ = 4, "+fm(BANDS[2])+"+ = 3, "+fm(BANDS[3])+"+ = 2, below = 1)."],
+   ["First-version cost","Low: "+x.p+" people × "+x.m1+" months × "+fm(r[0])+" + "+fm(x.x1)+" tools, licences and hardware = "+fm(x.lo)+".<br>High: "+x.p+" × "+x.m2+" months × "+fm(r[1])+" + "+fm(x.x2)+" = "+fm(x.hi)+". <span class=\"muted\">("+tierName+" pay rate)</span>"],
+   ["Cost to serve one customer a year",fn(x.h)+" hours × "+fm(r[2])+"/hour + "+fm(x.oth)+" third-party fees + ("+fm(x.inf)+" shared infrastructure ÷ "+fn(x.N)+" customers) = <strong>"+fm(x.cogs)+"</strong>."],
+   ["Gross margin","("+fm(x.acv)+" − "+fm(x.cogs)+") ÷ "+fm(x.acv)+" = <strong>"+Math.round(x.gm*100)+"%</strong>."],
+   ["Price floor",fm(x.cogs)+" ÷ (1 − "+fl+"% target margin) = <strong>"+fm(x.floor)+"</strong> per customer a year. "+priceNote],
+   ["Revenue by end of year 2",fn(x.N)+" customers × "+fm(x.acv)+" = <strong>"+fm(x.rev2)+" a year</strong> (target, not a forecast)."],
+   ["Customers to repay the build",fm(x.hi)+" ÷ ("+fm(x.acv)+" × "+Math.round(x.gm*100)+"% margin) = <strong>"+x.pay+"</strong> customer-years."],
+   ["Weighted score","("+sum+") ÷ 5 = <strong>"+i.score+"/100</strong>."]
+  ];
+  return '<div class="dgrp calc"><h4 class="label">How the figures were calculated</h4><dl>'+L.map(function(l){return '<dt>'+l[0]+'</dt><dd>'+l[1]+'</dd>'}).join("")+'</dl></div>';
+}
+function row(i){
+  return '<tr><td class="mono">'+i.n+'</td><td><strong>'+esc(i.name)+'</strong></td><td>'+esc(i.cat)+'</td><td>'+esc(i.seg.join(", "))+'</td><td>'+esc(i.ind)+'</td><td class="r">'+esc(i.price)+'</td><td class="r">'+fm(i.c.mkt)+'</td><td>'+esc(i.mvpc)+'</td><td>'+esc(i.hwTier)+'</td><td>'+esc(String(i.platformRisk).split(":")[0])+'</td><td><span class="chip fit'+i.fit.charAt(0)+'">'+esc(i.fit)+'</span></td><td class="r"><strong>'+i.score+'</strong> <span class="mono" style="color:var(--muted)">#'+i.rank+'</span></td></tr>';
+}
+
+var q=$("q"),fcat=$("fcat"),fseg=$("fseg"),ffit=$("ffit"),sort=$("sort"),view="cards";
+function render(){
+  var t=q.value.trim().toLowerCase(),c=fcat.value,sg=fseg.value,f=ffit.value;
+  var list=I.filter(function(i){
+    if(c&&i.cat!==c)return false;
+    if(sg&&i.seg.indexOf(sg)<0)return false;
+    if(f&&i.fit!==f)return false;
+    if(t){var hay=(i.name+" "+i.one+" "+i.ind+" "+i.buyer+" "+i.why+" "+i.regions).toLowerCase();if(hay.indexOf(t)<0)return false}
+    return true;
+  });
+  var s=sort.value;
+  list.sort(function(a,b){
+    if(s==="score")return b.score-a.score||a.n-b.n;
+    if(s==="fit")return fitRank[a.fit]-fitRank[b.fit]||a.n-b.n;
+    if(s==="mkt")return b.c.mkt-a.c.mkt||a.n-b.n;
+    if(s==="priceAsc")return a.pnum-b.pnum||a.n-b.n;
+    if(s==="priceDesc")return b.pnum-a.pnum||a.n-b.n;
+    if(s==="easy")return buildRank[a.build]-buildRank[b.build]||a.n-b.n;
+    return a.n-b.n;
+  });
+  $("count").textContent="Showing "+list.length+" of "+I.length+" ideas";
+  var cardsEl=$("cards"),tw=$("tablewrap");
+  if(!list.length){cardsEl.innerHTML='<div class="empty">No ideas match these filters. Clear the search or pick "All".</div>';cardsEl.hidden=false;tw.hidden=true;return}
+  if(view==="cards"){cardsEl.innerHTML=list.map(card).join("");cardsEl.hidden=false;tw.hidden=true}
+  else{$("tbody").innerHTML=list.map(row).join("");cardsEl.hidden=true;tw.hidden=false}
+}
+[q,fcat,fseg,ffit,sort].forEach(function(el){el.addEventListener("input",render);el.addEventListener("change",render)});
+var vc=$("v-cards"),vt=$("v-table");
+function setView(v){view=v;vc.setAttribute("aria-pressed",v==="cards");vt.setAttribute("aria-pressed",v==="table");try{localStorage.setItem("ideasView",v)}catch(e){}render()}
+vc.addEventListener("click",function(){setView("cards")});vt.addEventListener("click",function(){setView("table")});
+try{if(localStorage.getItem("ideasView")==="table")view="table"}catch(e){}
+vc.setAttribute("aria-pressed",view==="cards");vt.setAttribute("aria-pressed",view==="table");
+render();
+
+/* Where to start: automatic ranking summary, then the researcher's own paragraphs */
+function lst(a){return a.map(function(i){return '<strong>#'+i.n+' '+esc(i.name)+' ('+i.score+')</strong>'}).join(", ")}
+var byMkt=I.slice().sort(function(a,b){return b.c.mkt-a.c.mkt}).slice(0,3);
+var start='<p class="prose" style="margin:0">Highest overall scores: '+lst(ranked.slice(0,6))+'.</p>'+
+  '<p class="prose" style="margin:0">Largest calculated markets: '+byMkt.map(function(i){return '<strong>#'+i.n+' '+esc(i.name)+'</strong> ('+fm(i.c.mkt)+' a year)'}).join(", ")+'.</p>'+
+  (D.start||[]).map(function(p){return '<p class="prose" style="margin:0">'+md(p)+'</p>'}).join("");
+$("start").innerHTML=start;
+$("caveats").innerHTML=(D.caveats||[]).map(function(c){return '<li>'+md(c)+'</li>'}).join("");
+
+var used={};I.forEach(function(i){i.src.forEach(function(k){used[k]=1})});(D.evidence||[]).forEach(function(e){used[e.src]=1});
+$("srclist").innerHTML=Object.keys(S).filter(function(k){return used[k]}).map(function(k){return '<li><a href="'+esc(S[k][1])+'">'+esc(S[k][0])+'</a>'+(S[k][2]?' <span class="muted">· '+esc(S[k][2])+'</span>':'')+'</li>'}).join("");
+})();
+</script>
